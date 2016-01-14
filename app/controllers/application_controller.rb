@@ -18,6 +18,10 @@ class ApplicationController < Sinatra::Base
     def logged_in?
       !!session[:user_id]
     end
+
+    def current_user
+      User.find(session[:user_id])
+    end
     
     def any_params_blank?
       params.values.any? { |x| x == "" } 
