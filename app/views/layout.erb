@@ -24,12 +24,12 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
+          <% if logged_in? %>
+            <li role="presentation" class="active"><a href="/logout">Logout</a></li>
+          <% end %>
           </ul>
         </nav>
-        <h3 class="text-muted">Project name</h3>
+        <h3 class="text-muted">Simple Logger</h3>
       </div>
 
     <%= yield %>
