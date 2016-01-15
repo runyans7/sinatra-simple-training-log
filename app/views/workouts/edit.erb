@@ -1,0 +1,27 @@
+<h2>Edit Workout</h2>
+<form action="/workouts/<%= @workout.id %>/edit" method="POST">
+<div class="form-group">
+  <label for="workout_type">Select Workout Type:</label>
+  <select class="form-control" id="workout_type" name="workout_type" value="<%= @workout.workout_type %>">
+    <option <%= "selected" if @workout.workout_type == "Bike" %>>Run</option>
+    <option <%= "selected" if @workout.workout_type == "Bike" %>>Bike</option>
+  </select>
+</div>
+  <div class="form-group">
+    <label for="hours">Hours</label>
+    <input type="number" name="hours" class="form-control" id="hours" value="<%= @workout.seconds_to_hours(@workout.time_in_seconds) %>">
+  </div>
+  <div class="form-group">
+    <label for="minutes">Minutes</label>
+    <input type="number" name="minutes" class="form-control" id="minutes" value="<%= @workout.remaining_minutes(@workout.time_in_seconds) %>">
+  </div>
+  <div class="form-group">
+    <label for="seconds">Seconds</label>
+    <input type="number" name="seconds" class="form-control" id="seconds" value="<%= @workout.remaining_seconds(@workout.time_in_seconds) %>">
+  </div>
+  <div class="form-group">
+    <label for="distance">Distance</label>
+    <input type="number" step="any" name="distance" class="form-control" id="distance" value="<%= @workout.distance %>">
+  </div>
+  <button type="submit" class="btn btn-default">Edit Workout</button>
+</form>

@@ -25,6 +25,8 @@
         <nav>
           <ul class="nav nav-pills pull-right">
           <% if logged_in? %>
+            <li role="presentation" class="active"><a href="/workouts">All Workouts</a></li>
+            <li role="presentation" class="active"><a href="/workouts/new">New Workout</a></li>
             <li role="presentation" class="active"><a href="/logout">Logout</a></li>
           <% end %>
           </ul>

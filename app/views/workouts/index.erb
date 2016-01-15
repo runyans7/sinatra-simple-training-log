@@ -1,0 +1,19 @@
+<% @workouts.each do |workout| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= workout.workout_type %></h3>
+  </div>
+  <div class="panel-body">
+    <p><strong>Distance: </strong><%= workout.distance %> miles</p>
+    <p><strong>Time: </strong><%= Time.at(workout.time_in_seconds).utc.strftime("%H:%M:%S") %></p>
+    <p>
+      <a href="/workouts/<%= workout.id %>/edit" class="btn btn-xs btn-success">Edit Workout</a>
+    </p>
+    <p>
+      <form action="/workouts/<%= workout.id %>/delete" method="POST">
+        <button class="btn btn-xs btn-danger">Delete Workout</button>
+      </form>
+    </p>
+  </div>
+</div>
+<% end %>

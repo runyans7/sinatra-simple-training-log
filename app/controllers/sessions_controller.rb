@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect '/'
+      redirect '/workouts'
     else
       erb :'sessions/new'
     end
