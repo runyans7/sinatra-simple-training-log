@@ -6,17 +6,16 @@ class WorkoutsController < ApplicationController
     else
       redirect '/login'
     end
-  end 
+  end
 
   post '/workouts/new' do
     if required_fields_filled?
-      @workout = Workout.new
-
-      @workout.time_in_seconds = sum_seconds(params[:hours].to_i, params[:minutes].to_i, params[:seconds].to_i)
-      @workout.distance = params[:distance]
-      @workout.workout_type = params[:workout_type]
-      @workout.user = current_user
-      @workout.save
+      @workout = Workout.create(
+        time_in_seconds: sum_seconds(params[:hours].to_i, params[:minutes].to_i, params[:seconds].to_i),
+        distance: params[:distance],
+        workout_type: params[:workout_type],
+        user: current_user
+      )
       redirect '/workouts'
     else
       redirect '/workouts/new'
@@ -47,11 +46,12 @@ class WorkoutsController < ApplicationController
 
     if @workout.user == current_user
       if required_fields_filled?
-        @workout.time_in_seconds = sum_seconds(params[:hours].to_i, params[:minutes].to_i, params[:seconds].to_i)
-        @workout.distance = params[:distance]
-        @workout.workout_type = params[:workout_type]
-        @workout.user = current_user
-        @workout.save
+        @workout.update(
+          time_in_seconds: sum_seconds(params[:hours].to_i, params[:minutes].to_i, params[:seconds].to_i),
+          distance: params[:distance],
+          workout_type: params[:workout_type],
+          user: current_user
+        )
         redirect '/workouts'
       else
         redirect "/workouts/#{@workout.id}/edit"
