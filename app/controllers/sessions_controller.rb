@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
   get '/login' do
     if logged_in?
-      redirect '/'
+      redirect '/workouts'
     else
       erb :'sessions/new'
     end

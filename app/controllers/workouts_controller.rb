@@ -24,7 +24,7 @@ class WorkoutsController < ApplicationController
 
   get '/workouts' do
     if logged_in?
-      @workouts = Workout.where(user_id: current_user.id)
+      @workouts = current_user.workouts
       erb :'workouts/index'
     else
       redirect '/login'
@@ -32,9 +32,9 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/:id/edit' do
-    @workout = Workout.find(params[:id])
+    @workout = current_user.workouts.find_by(id: params[:id])
 
-    if @workout.user == current_user
+    if @workout
       erb :'workouts/edit'
     else
       redirect '/workouts'
@@ -42,9 +42,9 @@ class WorkoutsController < ApplicationController
   end
 
   post '/workouts/:id/edit' do
-    @workout = Workout.find(params[:id])
+    @workout = current_user.workouts.find_by(id: params[:id])
 
-    if @workout.user == current_user
+    if @workout && required_fields_filled?
       if required_fields_filled?
         @workout.update(
           time_in_seconds: sum_seconds(params[:hours].to_i, params[:minutes].to_i, params[:seconds].to_i),
@@ -62,13 +62,12 @@ class WorkoutsController < ApplicationController
   end
 
   post '/workouts/:id/delete' do
-    @workout = Workout.find(params[:id])
+    @workout = current_user.workouts.find_by(id: params[:id])
 
-    if @workout.user == current_user
-      @workout.destroy
+    if @workout && @workout.destroy
       redirect '/workouts'
     else
-      redirect 'workouts'
+      redirect '/workouts'
     end
   end
 
